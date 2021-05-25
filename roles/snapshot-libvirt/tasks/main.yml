@@ -74,10 +74,3 @@
     state: running
     uri: "{{ libvirt_uri }}"
   with_items: "{{ overcloud_nodes }}"
-
-- name: "Wait for the vms to start"
-  wait_for:
-    host: "{{ hostvars[item.name]['ansible_host'] }}"
-    port: 22
-    state: started
-  with_items: "{{ overcloud_nodes }}"

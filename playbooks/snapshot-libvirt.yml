@@ -10,3 +10,14 @@
   roles:
     - snapshot-libvirt
   become: true
+
+- hosts: subnodes
+  ignore_errors: true
+  wait_for_connection:
+    delay: 10
+    timeout: 10
+
+- hosts: subnodes
+  ignore_errors: true
+  tasks:
+    - meta: setup
