@@ -13,7 +13,11 @@
     libvirt_oc_names: >-
       {%- set names=[] -%}
       {%- for n in overcloud_nodes -%}
-        {%- if names.append(hostvars[n['name']]['inventory_hostname']) -%}{%- endif -%}
+        {%- if hostvars[n['name']] is defined -%}
+        {% set _ = names.append(hostvars[n['name']]['inventory_hostname']) -%}
+        {%- else -%}
+        {% set _ = names.append(n) -%}
+        {%- endif -%}
       {%- endfor -%}
       {{ names | join('|') }}
 
